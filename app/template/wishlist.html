@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Wishlist</title>
+</head>
+<body>
+	<h2>Your Personal Wishlist</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Destination</th>
+				<th>Planned Date</th>
+				<th>Weather Forecast</th>
+				<th>Recommendation</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in wishlist %}
+			<tr>
+				<td>{{ item.destination }}</td>
+				<td>{{ item.planned_date }}</td>
+				<td>{{ item.weather_forecast }}</td>
+				<td>{{ item.recommendation }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>

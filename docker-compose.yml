@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  app:
+    build: ./app
+    volumes:
+      - ./worker/worker.py:/app/worker.py
+    ports:
+      - 5050:5050
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/datawarehouse
+      - OW_API_KEY=***
+      - SENDGRID_API_KEY=***
+      - your_email="ankita_budhraja@berkeley.edu"
+      - OPENAI_API_KEY=***
+    depends_on:
+      - db
+      - worker
+      - redis
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: datawarehouse
+    volumes:
+      - ./init.db.sql:/docker-entrypoint-initdb.d/init.db.sql
+    ports:
+      - 5432:5432
+
+  worker:
+    build: ./worker
+    volumes:
+      - ./worker/worker.py:/app/worker.py
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/datawarehouse
+      - OW_API_KEY=***
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+
+  job_viewer:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=db+postgresql://postgres:postgres@db:5432/datawarehouse
+      - FLOWER_PORT=8888
+    ports:
+      - 8888:8888
+    depends_on:
+      - redis

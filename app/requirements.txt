@@ -1,0 +1,10 @@
+flask
+requests
+Flask-SQLAlchemy
+postgres
+celery
+sqlalchemy
+redis
+psycopg2==2.9.3
+openai
+sendgrid

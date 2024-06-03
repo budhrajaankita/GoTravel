@@ -1,0 +1,8 @@
+flask
+Flask-SQLAlchemy
+sqlalchemy
+celery
+requests
+redis
+postgres
+psycopg2==2.9.3

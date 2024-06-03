@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Add Destination to </title>
+	<style>
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+		input[type="text"], input[type="date"], input[type="email"], textarea {
+			width: 50%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+			font-family: Arial, sans-serif;
+		}
+		input[type="submit"] {
+			background-color: #8500ba;
+			color: #fff;
+			padding: 10px 20px;
+			border-radius: 5px;
+			border: none;
+			font-size: 16px;
+			font-family: Arial, sans-serif;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h2>Add Destination to Wishlist</h2>
+	<form action="/wishlist" method="post">
+		<label for="destination">Destination:</label>
+		<input type="text" id="destination" name="destination">
+		<label for="planned_date">Planned Date:</label>
+		<input type="date" id="planned_date" name="planned_date">
+		<input type="submit" value="Add Destination">
+		
+	</form>
+	<h2> Send wishlist to recipients</h2>
+	<form action="/wishlist/email" method="post">
+	<label for="email">Email:</label>
+		<input type="email" id="email" name="email">
+		<input type="submit" value="Send Email">
+	</form>
+</body>
+</html>
